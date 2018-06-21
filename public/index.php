@@ -10,11 +10,11 @@
 
   <body>
   <?php
-
-  function get_ip_address() {
+  
+  function get_ip_address($env) {
       foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
-          if (array_key_exists($key, $_SERVER) === true) {
-              foreach (explode(',', $_SERVER[$key]) as $ip) {
+          if (array_key_exists($key, $env) === true) {
+              foreach (explode(',', $env[$key]) as $ip) {
                   $ip = trim($ip); // just to be safe
 
                   if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false) {
@@ -28,7 +28,7 @@
   ?>
     
     <h1>Remote Address Test</h1>
-    <p>Your remote address is <code><?php echo get_ip_address(); ?></code>.</p>
+    <p>Your remote address is <code><?php echo get_ip_address($_SERVER); ?></code>.</p>
     <hr/>
     <pre><?php var_dump($_SERVER); ?></pre>
   </body>
