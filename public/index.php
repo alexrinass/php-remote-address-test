@@ -11,7 +11,7 @@
   <body>
   <?php
   
-  function get_ip_address($env) {
+  function get_client_ip_address($env) {
       foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
           if (array_key_exists($key, $env) === true) {
               foreach (explode(',', $env[$key]) as $ip) {
@@ -28,7 +28,7 @@
   ?>
     
     <h1>Remote Address Test</h1>
-    <p>Your remote address is <code><?php echo get_ip_address($_SERVER); ?></code>.</p>
+    <p>Your remote address is <code><?php echo get_client_ip_address($_SERVER); ?></code>.</p>
     <hr/>
     <pre><?php var_dump($_SERVER); ?></pre>
   </body>
